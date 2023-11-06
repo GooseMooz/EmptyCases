@@ -1,0 +1,4 @@
+name: EmptyCases
+version: '${version}'
+main: smp.plugin.GooseMooz.EmptyCases
+api-version: '1.20'
