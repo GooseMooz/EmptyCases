@@ -52,6 +52,21 @@ public class GUICommand implements CommandExecutor {
 
         player.openInventory(inventory);
         player.setMetadata("OpenedGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Preferences Menu"));
+
+        Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), new Runnable() {
+            boolean flag = true;
+            @Override
+            public void run() {
+                for (int i = 0; i < 10; i += 2) {
+                    inventory.setItem(i, flag ? new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE) : new ItemStack(Material.PURPLE_STAINED_GLASS_PANE));
+                    inventory.setItem(i + 1, !flag ? new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE) : new ItemStack(Material.PURPLE_STAINED_GLASS_PANE));
+                    inventory.setItem(i + 17, !flag ? new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE) : new ItemStack(Material.PURPLE_STAINED_GLASS_PANE));
+                    inventory.setItem(i + 18, flag ? new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE) : new ItemStack(Material.PURPLE_STAINED_GLASS_PANE));
+                }
+                flag = !flag;
+            }
+        }, 0L, 20L);
+
         return true;
     }
 }
