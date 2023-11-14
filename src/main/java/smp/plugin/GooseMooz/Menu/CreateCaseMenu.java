@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateCaseMenu {
-    public static Inventory initialMenu (Player player) {
-        Inventory menu = Bukkit.createInventory(player, 9 * 3, Component.text("New Case"));
+    public static Inventory initialMenu () {
+        Inventory menu = Bukkit.createInventory(null, 9 * 3, Component.text("New Case"));
         
         //Case Icon
         ItemStack caseIcon = new ItemStack(Material.CHEST);
