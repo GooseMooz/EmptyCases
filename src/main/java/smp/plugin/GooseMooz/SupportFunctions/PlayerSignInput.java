@@ -16,10 +16,9 @@ import smp.plugin.GooseMooz.EmptyCases;
 public class PlayerSignInput {
     public static void createSignInput (Player player) {
         Location location = new Location(player.getWorld(), 1000000, 1000000, 200);
-        Block block = location.getBlock();
-        block.setType(Material.OAK_SIGN);
-        Sign sign = (Sign) block.getState();
+        Sign sign = (Sign) new //SIGN GUI MAYBE;
 
+        player.closeInventory();
         player.openSign(sign, Side.FRONT);
         player.sendMessage("jopa");
         player.setMetadata("Input", new FixedMetadataValue(EmptyCases.getInstance(), "Inputting")); //TODO: MAKE IT WORK
