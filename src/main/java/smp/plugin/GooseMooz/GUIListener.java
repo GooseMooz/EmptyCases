@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
-import smp.plugin.GooseMooz.SupportFunctions.PlayerSignInput;
 
 public class GUIListener implements Listener {
     public static Inventory menu = CreateCaseMenu.initialMenu();
@@ -42,23 +41,6 @@ public class GUIListener implements Listener {
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 0.25, 0);
             } else if (slot == 1) {
                 // Open Title Editing Sign
-            }
-        }
-    }
-
-    @EventHandler
-    public static void onSignChange(SignChangeEvent event) {
-        Player player = event.getPlayer();
-        if (player.hasMetadata("Input")) {
-            player.setMetadata("Input", new FixedMetadataValue(EmptyCases.getInstance(), event.line(1)));
-            if (event.line(1) != null) {
-                Inventory changedMenu = Bukkit.createInventory(menu.getHolder(), menu.getSize(), event.line(1));
-                changedMenu.setContents(menu.getContents());
-                player.openInventory(changedMenu);
-                player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
-                player.removeMetadata("Input", EmptyCases.getInstance());
-            } else {
-                // TODO: MAKE THE ELSE LOGIC
             }
         }
     }
