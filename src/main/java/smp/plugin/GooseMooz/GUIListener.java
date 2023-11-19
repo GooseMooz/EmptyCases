@@ -23,6 +23,7 @@ public class GUIListener implements Listener {
 
             if (event.getSlot() == 11) {
                 //player.openInventory();
+                PlayerNameInput.createNameInput(player);
             } else if (event.getSlot() == 13) {
                 player.openInventory(menu);
                 player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
