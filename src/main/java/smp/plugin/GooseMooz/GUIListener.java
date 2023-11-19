@@ -1,6 +1,8 @@
 package smp.plugin.GooseMooz;
 
 import org.bukkit.Sound;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +25,6 @@ public class GUIListener implements Listener {
 
             if (event.getSlot() == 11) {
                 //player.openInventory();
-                PlayerNameInput.createNameInput(player);
             } else if (event.getSlot() == 13) {
                 player.openInventory(menu);
                 player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
@@ -41,7 +42,7 @@ public class GUIListener implements Listener {
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 0.25, 0);
             } else if (slot == 1) {
                 // Open Title Editing Sign
-                PlayerNameInput.createNameInput(player);
+                BlockState save = PlayerNameInput.createNameInput(player);
             }
         }
     }

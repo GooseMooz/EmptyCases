@@ -1,19 +1,25 @@
 package smp.plugin.GooseMooz.SupportFunctions;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.TileState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import smp.plugin.GooseMooz.EmptyCases;
 
 public class PlayerNameInput {
-    public static void createNameInput (Player player) {
+    public static BlockState createNameInput (Player player) {
         Material oakSign = Material.OAK_SIGN;
-        Block block = player.getWorld().getBlockAt(player.getLocation());
+        Location playerLocation = player.getLocation();
+        Block block = player.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY() - 4, playerLocation.getBlockZ());
+        BlockState save = block.getState();
         block.setType(oakSign);
         //BlockData data = block.createBlockData();
         //TileState tileState = (TileState) data.createBlockState();
@@ -24,6 +30,16 @@ public class PlayerNameInput {
         //player.openSign(sign, Side.FRONT);
         //TODO: MAKE THE SOLUTION NOT LAME
         Sign sign = (Sign) block.getState();
-        player.openSign(sign, Side.FRONT);
+        sign.getSide(Side.FRONT).line(2, Component.text("Write name above"));
+        sign.getSide(Side.FRONT).line(1, Component.text("======="));
+        sign.getSide(Side.FRONT).line(3, Component.text("======="));
+        sign.update();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.openSign(sign, Side.FRONT);
+            }
+        }.runTaskLater(EmptyCases.getInstance(), 3);
+        return save;
     }
 }
