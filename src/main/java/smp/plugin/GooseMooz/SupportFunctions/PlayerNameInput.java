@@ -8,6 +8,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import smp.plugin.GooseMooz.EmptyCases;
 
@@ -37,6 +38,7 @@ public class PlayerNameInput {
                 player.openSign(sign, Side.FRONT);
             }
         }.runTaskLater(EmptyCases.getInstance(), 3);
+        player.setMetadata("EditName", new FixedMetadataValue(EmptyCases.getInstance(), "Editing Case Name"));
         return save;
     }
 }
