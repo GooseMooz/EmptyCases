@@ -2,7 +2,10 @@ package smp.plugin.GooseMooz;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
@@ -14,6 +17,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.scheduler.BukkitRunnable;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
 import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
 
@@ -46,7 +50,7 @@ public class GUIListener implements Listener {
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 0.25, 0);
             } else if (slot == 1) {
                 // Open Title Editing Sign
-                BlockState save = PlayerNameInput.createNameInput(player);
+                PlayerNameInput.createNameInput(player);
             }
         }
     }
@@ -66,6 +70,11 @@ public class GUIListener implements Listener {
             }
             menu = temp;
             player.openInventory(menu);
+            player.removeMetadata("EditName", EmptyCases.getInstance());
+            Location playerLocation = player.getLocation();
+            Block restore = player.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY() - 4, playerLocation.getBlockZ());
+            Material prev = Material.valueOf(restore.getMetadata("PrevBlock").get(0).asString());
+            restore.setType(prev);
         }
     }
 

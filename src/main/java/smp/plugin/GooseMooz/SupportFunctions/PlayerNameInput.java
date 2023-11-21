@@ -13,11 +13,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import smp.plugin.GooseMooz.EmptyCases;
 
 public class PlayerNameInput {
-    public static BlockState createNameInput (Player player) {
+    public static void createNameInput (Player player) {
         Material oakSign = Material.OAK_SIGN;
         Location playerLocation = player.getLocation();
         Block block = player.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY() - 4, playerLocation.getBlockZ());
-        BlockState save = block.getState();
+        block.setMetadata("PrevBlock", new FixedMetadataValue(EmptyCases.getInstance(), block.getType().name()));
         block.setType(oakSign);
         //BlockData data = block.createBlockData();
         //TileState tileState = (TileState) data.createBlockState();
@@ -32,6 +32,7 @@ public class PlayerNameInput {
         sign.getSide(Side.FRONT).line(1, Component.text("======="));
         sign.getSide(Side.FRONT).line(3, Component.text("======="));
         sign.update();
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -39,6 +40,5 @@ public class PlayerNameInput {
             }
         }.runTaskLater(EmptyCases.getInstance(), 3);
         player.setMetadata("EditName", new FixedMetadataValue(EmptyCases.getInstance(), "Editing Case Name"));
-        return save;
     }
 }
