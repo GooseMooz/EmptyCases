@@ -21,7 +21,7 @@ public class CreateCaseMenu {
         //Case Icon
         ItemStack caseIcon = new ItemStack(Material.CHEST);
         ItemMeta metaCaseIcon = caseIcon.getItemMeta();
-        metaCaseIcon.displayName(Component.text("Case Icon").color(TextColor.color(99, 211, 255))); // TODO: CHANGE COLOR
+        metaCaseIcon.displayName(Component.text("Case Icon").color(TextColor.color(99, 211, 255)));
         caseIcon.setItemMeta(metaCaseIcon);
         
         //Change Name Function
@@ -83,6 +83,25 @@ public class CreateCaseMenu {
         menu.setItem(22, saveTemplateIcon); //Save Template
         menu.setItem(26, saveCaseIcon); //Save Case
 
+        return menu;
+    }
+
+    public static Inventory iconChooseMenu () {
+        Inventory menu = Bukkit.createInventory(null, 9 * 3, Component.text("Choose Case Icon"));
+
+        //Chest Icon
+        ItemStack chestIcon = new ItemStack(Material.CHEST);
+        ItemMeta metaChestIcon = chestIcon.getItemMeta();
+        metaChestIcon.displayName(Component.text("Chest Icon").color(TextColor.color(99, 211, 255)));
+        chestIcon.setItemMeta(metaChestIcon);
+        menu.setItem(0, chestIcon);
+
+        //Ender Chest Icon
+        ItemStack enderChestIcon = new ItemStack(Material.ENDER_CHEST);
+        ItemMeta metaEnderChestIcon = enderChestIcon.getItemMeta();
+        metaEnderChestIcon.displayName(Component.text("Ender Chest Icon").color(TextColor.color(135, 2, 255)));
+        enderChestIcon.setItemMeta(metaEnderChestIcon);
+        menu.setItem(1, enderChestIcon);
         return menu;
     }
 }
