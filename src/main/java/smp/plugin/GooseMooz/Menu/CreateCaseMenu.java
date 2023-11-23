@@ -92,7 +92,7 @@ public class CreateCaseMenu {
         //Chest Icon
         ItemStack chestIcon = new ItemStack(Material.CHEST);
         ItemMeta metaChestIcon = chestIcon.getItemMeta();
-        metaChestIcon.displayName(Component.text("Chest Icon").color(TextColor.color(99, 211, 255)));
+        metaChestIcon.displayName(Component.text("Chest Icon").color(TextColor.color(255, 132, 89)));
         chestIcon.setItemMeta(metaChestIcon);
         menu.setItem(0, chestIcon);
 
