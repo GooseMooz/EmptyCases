@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
 import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
@@ -63,8 +64,14 @@ public class GUIListener implements Listener {
             assert name != null;
             Inventory temp = Bukkit.createInventory(null, 9*3, name);
             for (int i = 0; i < 27; i++) {
-                ItemStack item = menu.getItem(i);                           //TODO: Add Metadata, add block replacement
+                ItemStack item = menu.getItem(i);                       //TODO: Add Metadata, add block replacement
+
                 if (item != null) {
+                    if (i == 1) {
+                        ItemMeta signName = item.getItemMeta();
+                        signName.displayName(name);
+                        item.setItemMeta(signName);
+                    }
                     temp.setItem(i, item.clone());
                 }
             }
