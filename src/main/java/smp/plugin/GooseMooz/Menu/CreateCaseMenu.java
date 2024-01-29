@@ -79,6 +79,15 @@ public class CreateCaseMenu {
         menu.setItem(9, settingsIcon); //Settings Icon
         menu.setItem(10, containsIcon); //Settings
         //Settings continue
+        //TODO: SETTINGS:
+        // Change background    MERGE THESE
+        // Change animation     MERGE THESE
+        // Change item moving pattern
+        // Add items that can drop
+        // Chances of drops <- Creates list of items that will spin...
+        // What opens the case?
+        // Sounds on winning
+        // Effects in chat, etc.
         menu.setItem(18, discardIcon); //Discard
         menu.setItem(22, saveTemplateIcon); //Save Template
         menu.setItem(26, saveCaseIcon); //Save Case
