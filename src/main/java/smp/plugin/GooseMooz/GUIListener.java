@@ -54,6 +54,12 @@ public class GUIListener implements Listener {
                 PlayerNameInput.createNameInput(player);
             }
         }
+
+        if (player.hasMetadata("CaseIconChoose")) {
+            event.setCancelled(true);
+            int slot = event.getSlot();
+            ItemStack icon = player.getInventory().getItem(slot); //TODO: Add metadata that says what item the player picked
+        }
     }
 
     @EventHandler
@@ -64,11 +70,11 @@ public class GUIListener implements Listener {
             assert name != null;
             Inventory temp = Bukkit.createInventory(null, 9*3, name);
             for (int i = 0; i < 27; i++) {
-                ItemStack item = menu.getItem(i);                       //TODO: Add Metadata, add block replacement
+                ItemStack item = menu.getItem(i);
 
                 if (item != null) {
                     if (i == 1) {
-                        ItemMeta signName = item.getItemMeta();
+                        ItemMeta signName = item.getItemMeta(); //TODO: DO IT TROUGH JSON
                         signName.displayName(name);
                         item.setItemMeta(signName);
                     }
