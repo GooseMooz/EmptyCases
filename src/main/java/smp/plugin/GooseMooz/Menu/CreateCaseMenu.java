@@ -92,6 +92,13 @@ public class CreateCaseMenu {
         //TODO: JSON:
         // Has name, all properties of icons, animations, etc., has inventory of items to dispose.
         // Create a function that creates an inventory from JSON file of a case
+        // Structure:
+        // {
+        //      Name: *name*
+        //      Icon: *block + meta*
+        //      Settings: *BG + ANIMATION + WHEEL*
+        //      Items: [*items*]
+        //  }
         menu.setItem(18, discardIcon); //Discard
         menu.setItem(22, saveTemplateIcon); //Save Template
         menu.setItem(26, saveCaseIcon); //Save Case
