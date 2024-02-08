@@ -5,11 +5,11 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,17 +88,6 @@ public class CreateCaseMenu {
         // What opens the case?
         // Sounds on winning
         // Effects in chat, etc.
-
-        //TODO: JSON:
-        // Has name, all properties of icons, animations, etc., has inventory of items to dispose.
-        // Create a function that creates an inventory from JSON file of a case
-        // Structure:
-        // {
-        //      Name: *name*
-        //      Icon: *block + meta*
-        //      Settings: *BG + ANIMATION + WHEEL*
-        //      Items: [*items*]
-        //  }
         menu.setItem(18, discardIcon); //Discard
         menu.setItem(22, saveTemplateIcon); //Save Template
         menu.setItem(26, saveCaseIcon); //Save Case
