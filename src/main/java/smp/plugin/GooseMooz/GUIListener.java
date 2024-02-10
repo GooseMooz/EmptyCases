@@ -22,6 +22,8 @@ import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
 public class GUIListener implements Listener {
     public static Inventory menu = CreateCaseMenu.initialMenu();
 
+
+
     @EventHandler
     public void onInventoryClick (InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();

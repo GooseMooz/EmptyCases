@@ -4,74 +4,77 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.List;
+import smp.plugin.GooseMooz.Case.Case;
+import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
 
 public class CreateCaseMenu {
+
+    public static Case caseFromInventory(Inventory inventory) {
+        assert inventory.getItem(1) != null;
+        return new Case(inventory.getItem(1).getItemMeta().displayName());
+    }
+    public static Inventory inventoryFromCase(Case template) {
+        Inventory newInv = Bukkit.createInventory(null, 9*3, template.getName());
+        newInv.setItem(0, template.getIcon());
+
+        ItemStack caseName = InitIcons.initNameIcon(template.getName().toString());
+        newInv.setItem(1, caseName);
+        //Apply Template
+        ItemStack templateIcon = InitIcons.initTemplateIcon();
+
+        //Settings Icon
+        ItemStack settingsIcon = InitIcons.initSettingsIcon();
+
+        //Contains
+        ItemStack containsIcon = InitIcons.initContainsIcon();
+
+        //Discard
+        ItemStack discardIcon = InitIcons.initDiscardIcon();
+
+        //Save Template
+        ItemStack saveTemplateIcon = InitIcons.initSaveTemplateIcon();
+
+        //Save Case
+        ItemStack saveCaseIcon = InitIcons.initSaveCaseIcon();
+
+        newInv.setItem(1, caseName); //Change Name Function
+        newInv.setItem(8, templateIcon); //Apply Template
+        newInv.setItem(9, settingsIcon); //Settings Icon
+        newInv.setItem(10, containsIcon); //Settings
+        newInv.setItem(18, discardIcon); //Discard
+        newInv.setItem(22, saveTemplateIcon); //Save Template
+        newInv.setItem(26, saveCaseIcon); //Save Case
+        return newInv;
+    }
+
     public static Inventory initialMenu () {
         Inventory menu = Bukkit.createInventory(null, 9 * 3, Component.text("New Case"));
         
         //Case Icon
-        ItemStack caseIcon = new ItemStack(Material.CHEST);
-        ItemMeta metaCaseIcon = caseIcon.getItemMeta();
-        metaCaseIcon.displayName(Component.text("Case Icon").color(TextColor.color(99, 211, 255)));
-        caseIcon.setItemMeta(metaCaseIcon);
-        
+        ItemStack caseIcon = InitIcons.initCaseIcon();
         //Change Name Function
-        ItemStack caseName = new ItemStack(Material.OAK_SIGN);
-        ItemMeta metaCaseName = caseName.getItemMeta();
-        metaCaseName.displayName(Component.text("Case").color(TextColor.color(255, 255, 255)));
-        List<Component> description = new ArrayList<>();
-        description.add(Component.text(""));
-        description.add(Component.text("Click to change the case name").color(TextColor.color(70, 70, 70)));
-        description.add(Component.text(""));
-        metaCaseName.lore(description);
-        caseName.setItemMeta(metaCaseName);
+        ItemStack caseName = InitIcons.initNameIcon("New Case");
 
         //Apply Template
-        ItemStack templateIcon = new ItemStack(Material.BOOK);
-        ItemMeta metaTemplateIcon = templateIcon.getItemMeta();
-        metaTemplateIcon.displayName(Component.text("Apply Template").color(TextColor.color(255, 123, 0)));
-        metaTemplateIcon.addEnchant(Enchantment.LURE, 1, false);
-        metaTemplateIcon.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        templateIcon.setItemMeta(metaTemplateIcon);
+        ItemStack templateIcon = InitIcons.initTemplateIcon();
 
         //Settings Icon
-        ItemStack settingsIcon = new ItemStack(Material.COMPARATOR);
-        ItemMeta metaSettingsIcon = settingsIcon.getItemMeta();
-        metaSettingsIcon.displayName(Component.text("Settings").color(TextColor.color(110, 135, 255)));
-        settingsIcon.setItemMeta(metaSettingsIcon);
+        ItemStack settingsIcon = InitIcons.initSettingsIcon();
 
         //Contains
-        ItemStack containsIcon = new ItemStack(Material.BARREL);
-        ItemMeta metaContainsIcon = containsIcon.getItemMeta();
-        metaContainsIcon.displayName(Component.text("Items").color(TextColor.color(185, 133, 136)));
-        containsIcon.setItemMeta(metaContainsIcon);
+        ItemStack containsIcon = InitIcons.initContainsIcon();
 
         //Discard
-        ItemStack discardIcon = new ItemStack(Material.BARRIER);
-        ItemMeta metaDiscardIcon = discardIcon.getItemMeta();
-        metaDiscardIcon.displayName(Component.text("Discard").color(TextColor.color(255, 0, 8)));
-        discardIcon.setItemMeta(metaDiscardIcon);
+        ItemStack discardIcon = InitIcons.initDiscardIcon();
 
         //Save Template
-        ItemStack saveTemplateIcon = new ItemStack(Material.WRITABLE_BOOK);
-        ItemMeta metaSaveTemplateIconIcon = saveTemplateIcon.getItemMeta();
-        metaSaveTemplateIconIcon.displayName(Component.text("Save Template").color(TextColor.color(255, 240, 0)));
-        saveTemplateIcon.setItemMeta(metaSaveTemplateIconIcon);
+        ItemStack saveTemplateIcon = InitIcons.initSaveTemplateIcon();
 
         //Save Case
-        ItemStack saveCaseIcon = new ItemStack(Material.EMERALD);
-        ItemMeta metaSaveCaseIcon = saveCaseIcon.getItemMeta();
-        metaSaveCaseIcon.displayName(Component.text("Save Case").color(TextColor.color(0, 255, 80)));
-        saveCaseIcon.setItemMeta(metaSaveCaseIcon);
+        ItemStack saveCaseIcon = InitIcons.initSaveCaseIcon();
 
         menu.setItem(0, caseIcon); //Case Icon
         menu.setItem(1, caseName); //Change Name Function
