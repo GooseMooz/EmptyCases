@@ -10,10 +10,14 @@ package smp.plugin.GooseMooz.Case;
 //      Items: [*items*]
 //  }
 
+import com.google.gson.Gson;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
 import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class Case {
@@ -74,5 +78,38 @@ public class Case {
 
     public void setItems(ArrayList<ItemStack> newItems) {
         this.items = newItems;
+    }
+
+    public void makeCurrent() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        String path = "java/smp/plugin/GooseMooz/resources/current.json";
+        try {
+            Files.write(Paths.get(path), json.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onClose() {
+        String blank = "";
+        String path = "java/smp/plugin/GooseMooz/resources/current.json";
+        try {
+            Files.write(Paths.get(path), blank.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveCase() {
+        onClose();
+        Gson gson = new Gson();
+        String save = gson.toJson(this);
+        String path = "java/smp/plugin/GooseMooz/resources/cases.json";
+        try { // TODO: Test, maybe should change to parsing to list, append, rewrite
+            Files.write(Paths.get(path), save.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
