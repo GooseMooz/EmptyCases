@@ -16,13 +16,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
+import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
 import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
 
 public class GUIListener implements Listener {
     public static Inventory menu = CreateCaseMenu.initialMenu();
 
-
+    Case currentCase = new Case(Component.text("New Case"));
 
     @EventHandler
     public void onInventoryClick (InventoryClickEvent event) {
@@ -44,7 +45,7 @@ public class GUIListener implements Listener {
 
         if (player.hasMetadata("CreateCaseGUI")) {
             event.setCancelled(true);
-
+            currentCase.makeCurrent();
             int slot = event.getSlot();
             if (slot == 0) {
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 0.25, 0);
@@ -109,6 +110,7 @@ public class GUIListener implements Listener {
 
         if (player.hasMetadata("CreateCaseGUI")) {
             player.removeMetadata("CreateCaseGUI", EmptyCases.getInstance());
+            currentCase.onClose();
         }
     }
 }

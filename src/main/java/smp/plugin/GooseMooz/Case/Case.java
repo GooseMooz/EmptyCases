@@ -83,7 +83,7 @@ public class Case {
     public void makeCurrent() {
         Gson gson = new Gson();
         String json = gson.toJson(this);
-        String path = "java/smp/plugin/GooseMooz/resources/current.json";
+        String path = "emptycases/current.json";
         try {
             Files.write(Paths.get(path), json.getBytes());
         } catch (IOException e) {
@@ -93,9 +93,11 @@ public class Case {
 
     public void onClose() {
         String blank = "";
-        String path = "java/smp/plugin/GooseMooz/resources/current.json";
+        String path = "emptycases/current.json";
         try {
             Files.write(Paths.get(path), blank.getBytes());
+            System.out.println("CHE GDE YA");
+            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +107,7 @@ public class Case {
         onClose();
         Gson gson = new Gson();
         String save = gson.toJson(this);
-        String path = "java/smp/plugin/GooseMooz/resources/cases.json";
+        String path = "emptycases/cases.json";
         try { // TODO: Test, maybe should change to parsing to list, append, rewrite
             Files.write(Paths.get(path), save.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
