@@ -11,9 +11,13 @@ package smp.plugin.GooseMooz.Case;
 //  }
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
 import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -106,12 +110,22 @@ public class Case {
     public void saveCase() {
         onClose();
         Gson gson = new Gson();
-        String save = gson.toJson(this);
-        String path = "emptycases/cases.json";
-        try { // TODO: Test, maybe should change to parsing to list, append, rewrite
-            Files.write(Paths.get(path), save.getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
+        try {
+            FileReader fileReader = new FileReader("emptycases/cases.json");
+            ArrayList<Case> cases = gson.fromJson(fileReader, new TypeToken<ArrayList<Case>>(){}.getType());
+            if (cases == null) {
+                cases = new ArrayList<>();
+            }
+            cases.add(this);
+            String save = gson.toJson(cases);
+            String path = "emptycases/cases.json";
+            try { // TODO: Test, maybe should change to parsing to list, append, rewrite
+                Files.write(Paths.get(path), save.getBytes(), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

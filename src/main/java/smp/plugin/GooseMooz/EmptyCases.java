@@ -1,19 +1,12 @@
 package smp.plugin.GooseMooz;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.bukkit.plugin.java.JavaPlugin;
-import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.commands.GUICommand;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 public final class EmptyCases extends JavaPlugin {
     private static EmptyCases instance;
