@@ -12,59 +12,58 @@ package smp.plugin.GooseMooz.Case;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
-import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class Case {
-    Component name = Component.text("New Case");
-    ItemStack icon = InitIcons.initCaseIcon();
+    String name = "New Case";
+    int icon = 0;
     String settings = "000";
     ArrayList<ItemStack> items = new ArrayList<>();
 
-    public Case(Component newName, ItemStack newIcon, String newSettings, ArrayList<ItemStack> newItems) {
+    public Case(String newName, int newIcon, String newSettings, ArrayList<ItemStack> newItems) {
         setName(newName);
         setIcon(newIcon);
         setSettings(newSettings);
         setItems(newItems);
     }
 
-    public Case(Component newName, ItemStack newIcon, String newSettings) {
+    public Case(String newName, int newIcon, String newSettings) {
         setName(newName);
         setIcon(newIcon);
         setSettings(newSettings);
     }
 
-    public Case(Component newName, ItemStack newIcon) {
+    public Case(String newName, int newIcon) {
         setName(newName);
         setIcon(newIcon);
     }
 
-    public Case(Component newName) {
+    public Case(String newName) {
         setName(newName);
     }
 
-    public Component getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Component newName) {
+    public void setName(String newName) {
         this.name = newName;
     }
 
-    public ItemStack getIcon() {
+    public int getIcon() {
         return icon;
     }
 
-    public void setIcon(ItemStack newIcon) {
+    public void setIcon(int newIcon) {
         this.icon = newIcon;
     }
 
@@ -100,8 +99,6 @@ public class Case {
         String path = "emptycases/current.json";
         try {
             Files.write(Paths.get(path), blank.getBytes());
-            System.out.println("CHE GDE YA");
-            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,7 +109,8 @@ public class Case {
         Gson gson = new Gson();
         try {
             FileReader fileReader = new FileReader("emptycases/cases.json");
-            ArrayList<Case> cases = gson.fromJson(fileReader, new TypeToken<ArrayList<Case>>(){}.getType());
+            Type caseArrayType = new TypeToken<ArrayList<Case>>(){}.getType();
+            ArrayList<Case> cases = gson.fromJson(fileReader, caseArrayType);
             if (cases == null) {
                 cases = new ArrayList<>();
             }

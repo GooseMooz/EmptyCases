@@ -92,6 +92,8 @@ public class GUIListener implements Listener {
                 }
             }
             menu = temp;
+            currentCase = CreateCaseMenu.caseFromInventory(menu);
+            currentCase.makeCurrent();
             player.openInventory(menu);
             player.removeMetadata("EditName", EmptyCases.getInstance());
             Location playerLocation = player.getLocation();
