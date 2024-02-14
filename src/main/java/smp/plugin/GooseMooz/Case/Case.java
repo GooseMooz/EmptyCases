@@ -115,10 +115,11 @@ public class Case {
                 cases = new ArrayList<>();
             }
             cases.add(this);
+            System.out.println("IDC");
             String save = gson.toJson(cases);
             String path = "emptycases/cases.json";
             try { // TODO: Test, maybe should change to parsing to list, append, rewrite
-                Files.write(Paths.get(path), save.getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get(path), save.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }

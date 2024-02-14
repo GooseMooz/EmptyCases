@@ -23,7 +23,7 @@ import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
 public class GUIListener implements Listener {
     public static Inventory menu = CreateCaseMenu.initialMenu();
 
-    Case currentCase = new Case(Component.text("New Case"));
+    Case currentCase = new Case("New Case");
 
     @EventHandler
     public void onInventoryClick (InventoryClickEvent event) {

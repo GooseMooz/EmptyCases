@@ -2,6 +2,7 @@ package smp.plugin.GooseMooz.Menu;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -10,17 +11,23 @@ import org.bukkit.inventory.meta.ItemMeta;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
 public class CreateCaseMenu {
+    static ArrayList<ItemStack> icons = new ArrayList<>(Arrays.asList(InitIcons.initCaseIcon(), InitIcons.initContainsIcon()));
 
     public static Case caseFromInventory(Inventory inventory) {
         assert inventory.getItem(1) != null;
-        return new Case(inventory.getItem(1).getItemMeta().displayName());
+        String name = PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(Objects.requireNonNull(inventory.getItem(1)).getItemMeta().displayName()));
+        return new Case(name);
     }
     public static Inventory inventoryFromCase(Case template) {
-        Inventory newInv = Bukkit.createInventory(null, 9*3, template.getName());
-        newInv.setItem(0, template.getIcon());
+        Inventory newInv = Bukkit.createInventory(null, 9*3, Component.text(template.getName()));
+        newInv.setItem(0, icons.get(template.getIcon()));
 
-        ItemStack caseName = InitIcons.initNameIcon(template.getName().toString());
+        ItemStack caseName = InitIcons.initNameIcon(template.getName());
         newInv.setItem(1, caseName);
         //Apply Template
         ItemStack templateIcon = InitIcons.initTemplateIcon();
