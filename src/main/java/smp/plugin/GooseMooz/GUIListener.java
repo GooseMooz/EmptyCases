@@ -55,10 +55,14 @@ public class GUIListener implements Listener {
                 // Open Title Editing Sign
                 player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, (float) 0.25, 0);
                 PlayerNameInput.createNameInput(player);
+            } else if (slot == 22) {
+                // Save The Case to the templates
+                currentCase = CreateCaseMenu.caseFromInventory(menu);
+                currentCase.saveCase(2);
             } else if (slot == 26) {
                 // Save The Case
                 currentCase = CreateCaseMenu.caseFromInventory(menu);
-                currentCase.saveCase();
+                currentCase.saveCase(1);
                 player.closeInventory();
                 menu = CreateCaseMenu.initialMenu();
                 player.removeMetadata("CreateCaseGUI", EmptyCases.getInstance());

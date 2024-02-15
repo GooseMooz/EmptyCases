@@ -104,21 +104,28 @@ public class Case {
         }
     }
 
-    public void saveCase() {
-        onClose();
+    public void saveCase(int option) {
         Gson gson = new Gson();
         try {
-            FileReader fileReader = new FileReader("emptycases/cases.json");
-            Type caseArrayType = new TypeToken<ArrayList<Case>>(){}.getType();
+            FileReader fileReader;
+            String path;
+            if (option == 1) {
+                fileReader = new FileReader("emptycases/cases.json");
+                path = "emptycases/cases.json";
+                onClose();
+            } else {
+                fileReader = new FileReader("emptycases/templates.json");
+                path = "emptycases/templates.json";
+            }
+            Type caseArrayType = new TypeToken<ArrayList<Case>>() {}.getType();
             ArrayList<Case> cases = gson.fromJson(fileReader, caseArrayType);
             if (cases == null) {
                 cases = new ArrayList<>();
             }
             cases.add(this);
-            System.out.println("IDC");
             String save = gson.toJson(cases);
-            String path = "emptycases/cases.json";
-            try { // TODO: Test, maybe should change to parsing to list, append, rewrite
+            try {
+
                 Files.write(Paths.get(path), save.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
