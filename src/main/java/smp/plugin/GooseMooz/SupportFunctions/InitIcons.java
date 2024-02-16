@@ -83,4 +83,20 @@ public class InitIcons {
         saveCaseIcon.setItemMeta(metaSaveCaseIcon);
         return saveCaseIcon;
     }
+
+    public static ItemStack enderChestIcon() {
+        ItemStack enderChestIcon = new ItemStack(Material.ENDER_CHEST);
+        ItemMeta metaEnderChestIcon = enderChestIcon.getItemMeta();
+        metaEnderChestIcon.displayName(Component.text("Ender Icon").color(TextColor.color(132, 0, 255)));
+        enderChestIcon.setItemMeta(metaEnderChestIcon);
+        return enderChestIcon;
+    }
+
+    public static ItemStack bundleIcon() {
+        ItemStack bundleIcon = new ItemStack(Material.BUNDLE);
+        ItemMeta metaBundleIcon = bundleIcon.getItemMeta();
+        metaBundleIcon.displayName(Component.text("Bundle Icon").color(TextColor.color(255, 164, 89)));
+        bundleIcon.setItemMeta(metaBundleIcon);
+        return bundleIcon;
+    }
 }

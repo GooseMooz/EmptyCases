@@ -16,7 +16,11 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class CreateCaseMenu {
-    static ArrayList<ItemStack> icons = new ArrayList<>(Arrays.asList(InitIcons.initCaseIcon(), InitIcons.initContainsIcon()));
+    static ArrayList<ItemStack> icons = new ArrayList<>(Arrays.asList(
+            InitIcons.initCaseIcon(), //Chest Icon
+            InitIcons.enderChestIcon(), //Ender Icon
+            InitIcons.bundleIcon() //Bundle Icon
+    ));
 
     public static Case caseFromInventory(Inventory inventory) {
         assert inventory.getItem(1) != null;
@@ -25,10 +29,11 @@ public class CreateCaseMenu {
     }
     public static Inventory inventoryFromCase(Case template) {
         Inventory newInv = Bukkit.createInventory(null, 9*3, Component.text(template.getName()));
-        newInv.setItem(0, icons.get(template.getIcon()));
+        newInv.setItem(0, icons.get(template.getIcon())); //Add Meta Description for changing icon
 
         ItemStack caseName = InitIcons.initNameIcon(template.getName());
         newInv.setItem(1, caseName);
+
         //Apply Template
         ItemStack templateIcon = InitIcons.initTemplateIcon();
 
@@ -106,21 +111,14 @@ public class CreateCaseMenu {
     }
 
     public static Inventory iconChooseMenu () {
-        Inventory menu = Bukkit.createInventory(null, 9 * 3, Component.text("Choose Case Icon"));
+        Inventory menu = Bukkit.createInventory(null, 9, Component.text("Choose Case Icon"));
 
-        //Chest Icon
-        ItemStack chestIcon = new ItemStack(Material.CHEST);
-        ItemMeta metaChestIcon = chestIcon.getItemMeta();
-        metaChestIcon.displayName(Component.text("Chest Icon").color(TextColor.color(255, 132, 89)));
-        chestIcon.setItemMeta(metaChestIcon);
-        menu.setItem(0, chestIcon);
-
-        //Ender Chest Icon
-        ItemStack enderChestIcon = new ItemStack(Material.ENDER_CHEST);
-        ItemMeta metaEnderChestIcon = enderChestIcon.getItemMeta();
-        metaEnderChestIcon.displayName(Component.text("Ender Chest Icon").color(TextColor.color(135, 2, 255)));
-        enderChestIcon.setItemMeta(metaEnderChestIcon);
-        menu.setItem(1, enderChestIcon);
+        ItemStack caseIcon = InitIcons.initCaseIcon();
+        ItemStack enderIcon = InitIcons.enderChestIcon();
+        ItemStack bundleIcon = InitIcons.bundleIcon();
+        menu.setItem(0, caseIcon);
+        menu.setItem(1, enderIcon);
+        menu.setItem(2, bundleIcon);
         return menu;
     }
 }

@@ -50,6 +50,7 @@ public class GUIListener implements Listener {
             if (slot == 0) {
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 0.25, 0);
                 player.openInventory(CreateCaseMenu.iconChooseMenu());
+                player.removeMetadata("CreateCaseGui", EmptyCases.getInstance());
                 player.setMetadata("CaseIconChoose", new FixedMetadataValue(EmptyCases.getInstance(), "Choose Case Icon"));
             } else if (slot == 1) {
                 // Open Title Editing Sign
@@ -72,7 +73,12 @@ public class GUIListener implements Listener {
         if (player.hasMetadata("CaseIconChoose")) {
             event.setCancelled(true);
             int slot = event.getSlot();
-            ItemStack icon = player.getInventory().getItem(slot); //TODO: Add metadata that says what item the player picked
+            currentCase.setIcon(slot);
+            currentCase.makeCurrent();
+            menu = CreateCaseMenu.inventoryFromCase(currentCase);
+            player.openInventory(menu);
+            player.removeMetadata("CaseIconChoose", EmptyCases.getInstance());
+            player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
         }
     }
 
