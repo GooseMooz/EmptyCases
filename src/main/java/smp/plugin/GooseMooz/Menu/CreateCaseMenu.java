@@ -5,7 +5,9 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import smp.plugin.GooseMooz.Case.Case;
@@ -122,5 +124,32 @@ public class CreateCaseMenu {
         enderChestIcon.setItemMeta(metaEnderChestIcon);
         menu.setItem(1, enderChestIcon);
         return menu;
+    }
+
+    public static Inventory mainMenu() {
+        Inventory inventory = Bukkit.createInventory(null, 9 * 3, Component.text("Preferences Menu").color(TextColor.color(25, 27, 123)));
+
+        ItemStack createNewCase = new ItemStack(Material.CHEST);
+        ItemMeta metaNewCase = createNewCase.getItemMeta();
+        metaNewCase.addEnchant(Enchantment.LURE, 1, false);
+        metaNewCase.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        metaNewCase.displayName(Component.text("Create").color(TextColor.color(255, 122, 213)));
+        createNewCase.setItemMeta(metaNewCase);
+
+        ItemStack editCases = new ItemStack(Material.CHEST_MINECART);
+        ItemMeta metaEditCases = editCases.getItemMeta();
+        metaEditCases.displayName(Component.text("Edit").color(TextColor.color(99, 211, 255)));
+        editCases.setItemMeta(metaEditCases);
+
+        ItemStack additionalOptions = new ItemStack(Material.MINECART);
+        ItemMeta metaAdditionalOptions = additionalOptions.getItemMeta();
+        metaAdditionalOptions.displayName(Component.text("Options").color(TextColor.color(255, 181, 152)));
+        additionalOptions.setItemMeta(metaAdditionalOptions);
+
+        inventory.setItem(11, editCases);
+        inventory.setItem(13, createNewCase);
+        inventory.setItem(15, additionalOptions);
+
+        return inventory;
     }
 }

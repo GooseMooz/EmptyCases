@@ -16,6 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
+import smp.plugin.GooseMooz.Animations.AnimationsGUI;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
 import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
@@ -35,6 +36,8 @@ public class GUIListener implements Listener {
             if (event.getSlot() == 11) {
                 //player.openInventory();
             } else if (event.getSlot() == 13) {
+                currentCase.onClose();
+                menu = CreateCaseMenu.initialMenu();
                 player.openInventory(menu);
                 player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
                 player.removeMetadata("OpenedGUI", EmptyCases.getInstance());
@@ -55,10 +58,21 @@ public class GUIListener implements Listener {
                 // Open Title Editing Sign
                 player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, (float) 0.25, 0);
                 PlayerNameInput.createNameInput(player);
+            } else if (slot == 18) {
+                // Discard Case
+                currentCase.onClose();
+                menu = CreateCaseMenu.mainMenu();
+                player.openInventory(menu);
+                AnimationsGUI animationsGUI = new AnimationsGUI(menu);
+                Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), animationsGUI.mainMenu(), 0L, 20L);
+                player.setMetadata("OpenedGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Preferences Menu"));
+                player.removeMetadata("CreateCaseGUI", EmptyCases.getInstance());
+                player.playSound(player.getLocation(), Sound.ENTITY_CREEPER_DEATH, (float) 0.25, 0);
             } else if (slot == 22) {
                 // Save The Case to the templates
                 currentCase = CreateCaseMenu.caseFromInventory(menu);
                 currentCase.saveCase(2);
+                player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, (float) 0.25, 0);
             } else if (slot == 26) {
                 // Save The Case
                 currentCase = CreateCaseMenu.caseFromInventory(menu);
@@ -97,7 +111,7 @@ public class GUIListener implements Listener {
             }
             menu = temp;
             currentCase = CreateCaseMenu.caseFromInventory(menu);
-            currentCase.makeCurrent();
+            currentCase.makeCurrent(); // TODO: FIGURE OUT WHY DOESN'T WORK
             player.openInventory(menu);
             player.removeMetadata("EditName", EmptyCases.getInstance());
             Location playerLocation = player.getLocation();
