@@ -1,8 +1,8 @@
 package smp.plugin.GooseMooz.Menu;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -11,27 +11,27 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import smp.plugin.GooseMooz.Case.Case;
+import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
 import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class CreateCaseMenu {
-    static ArrayList<ItemStack> icons = new ArrayList<>(Arrays.asList(
-            InitIcons.initCaseIcon(), //Chest Icon
-            InitIcons.enderChestIcon(), //Ender Icon
-            InitIcons.bundleIcon() //Bundle Icon
-    ));
 
     public static Case caseFromInventory(Inventory inventory) {
         assert inventory.getItem(1) != null;
-        String name = PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(Objects.requireNonNull(inventory.getItem(1)).getItemMeta().displayName()));
-        return new Case(name);
+        String name = HelperFunctions.componentToString((Objects.requireNonNull(Objects.requireNonNull(inventory.getItem(1)).getItemMeta().displayName())));
+        int icon = HelperFunctions.iconToInt(inventory.getItem(0));
+        return new Case(name, icon);
     }
     public static Inventory inventoryFromCase(Case template) {
         Inventory newInv = Bukkit.createInventory(null, 9*3, Component.text(template.getName()));
-        newInv.setItem(0, icons.get(template.getIcon())); //Add Meta Description for changing icon
+        ItemStack icon = HelperFunctions.intToIcon(template.getIcon());
+        ItemMeta metaCaseIcon = icon.getItemMeta();
+        Style style = Objects.requireNonNull(metaCaseIcon.displayName()).style();
+        metaCaseIcon.displayName(Component.text("Case Icon").style(style));
+        icon.setItemMeta(metaCaseIcon);
+        newInv.setItem(0, icon);
 
         ItemStack caseName = InitIcons.initNameIcon(template.getName());
         newInv.setItem(1, caseName);
@@ -114,7 +114,6 @@ public class CreateCaseMenu {
 
     public static Inventory iconChooseMenu () {
         Inventory menu = Bukkit.createInventory(null, 9, Component.text("Choose Case Icon"));
-
         ItemStack caseIcon = InitIcons.initCaseIcon();
         ItemStack enderIcon = InitIcons.enderChestIcon();
         ItemStack bundleIcon = InitIcons.bundleIcon();
