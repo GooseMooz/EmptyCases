@@ -13,7 +13,6 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Animations.AnimationsGUI;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
@@ -38,8 +37,7 @@ public class GUIListener implements Listener {
                 player.openInventory(menu);
                 currentCase = CreateCaseMenu.caseFromInventory(menu);
                 currentCase.makeCurrent();
-                player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
-                player.removeMetadata("OpenedGUI", EmptyCases.getInstance());
+                HelperFunctions.removeSetMetadata("OpenedGUI", "CreateCaseGUI", "Create Cases Menu", player);
             } else if (event.getSlot() == 15) {
                 //player.openInventory();
             }
@@ -51,8 +49,7 @@ public class GUIListener implements Listener {
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 0.25, 0);
                 menu = CreateCaseMenu.iconChooseMenu();
                 player.openInventory(menu);
-                player.removeMetadata("CreateCaseGui", EmptyCases.getInstance());
-                player.setMetadata("CaseIconChoose", new FixedMetadataValue(EmptyCases.getInstance(), "Choose Case Icon"));
+                HelperFunctions.removeSetMetadata("CreateCaseGui", "CaseIconChoose", "Choose Case Icon", player);
             } else if (slot == 1) {
                 // Change Title
                 player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, (float) 0.25, 0);
@@ -64,8 +61,7 @@ public class GUIListener implements Listener {
                 player.openInventory(menu);
                 AnimationsGUI animationsGUI = new AnimationsGUI(menu);
                 Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), animationsGUI.mainMenu(), 0L, 20L);
-                player.setMetadata("OpenedGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Preferences Menu"));
-                player.removeMetadata("CreateCaseGUI", EmptyCases.getInstance());
+                HelperFunctions.removeSetMetadata("CreateCaseGUI", "OpenedGUI", "Preferences Menu", player);
                 player.playSound(player.getLocation(), Sound.ENTITY_CREEPER_DEATH, (float) 0.25, 0);
             } else if (slot == 22) {
                 // Save The Case to the templates
@@ -78,12 +74,11 @@ public class GUIListener implements Listener {
                 currentCase.saveCase(1);
                 player.closeInventory();
                 menu = CreateCaseMenu.initialMenu();
-                player.removeMetadata("CreateCaseGUI", EmptyCases.getInstance());
                 menu = CreateCaseMenu.mainMenu();
                 player.openInventory(menu);
                 AnimationsGUI animationsGUI = new AnimationsGUI(menu);
                 Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), animationsGUI.mainMenu(), 0L, 20L);
-                player.setMetadata("OpenedGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Preferences Menu"));
+                HelperFunctions.removeSetMetadata("CreateCaseGUI", "OpenedGUI", "Preferences Menu", player);
                 player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, (float) 0.25, 0);
             }
         } else if (player.hasMetadata("CaseIconChoose")) {
@@ -93,8 +88,7 @@ public class GUIListener implements Listener {
             currentCase.makeCurrent();
             menu = CreateCaseMenu.inventoryFromCase(currentCase);
             player.openInventory(menu);
-            player.removeMetadata("CaseIconChoose", EmptyCases.getInstance());
-            player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
+            HelperFunctions.removeSetMetadata("CaseIconChoose", "CreateCaseGUI", "Create Cases Menu", player);
         }
     }
 
@@ -112,8 +106,7 @@ public class GUIListener implements Listener {
             Block restore = player.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY() - 4, playerLocation.getBlockZ());
             Material prev = Material.valueOf(restore.getMetadata("PrevBlock").get(0).asString());
             restore.setType(prev);
-            restore.removeMetadata("PrevBlock", EmptyCases.getInstance());
-            player.setMetadata("CreateCaseGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Create Cases Menu"));
+            HelperFunctions.removeSetMetadata("PrevBlock", "CreateCaseGUI", "Create Cases Menu", player);
         }
     }
 
