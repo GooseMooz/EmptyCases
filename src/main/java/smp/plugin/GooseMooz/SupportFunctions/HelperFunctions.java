@@ -1,12 +1,19 @@
 package smp.plugin.GooseMooz.SupportFunctions;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.EmptyCases;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,5 +40,22 @@ public class HelperFunctions {
     public static void removeSetMetadata(String remove, String metaName, String metaDesc, Player player) {
         player.setMetadata(metaName, new FixedMetadataValue(EmptyCases.getInstance(), metaDesc));
         player.removeMetadata(remove, EmptyCases.getInstance());
+    }
+
+    public static ArrayList<Case> getCases() {
+        Gson gson = new Gson();
+        ArrayList<Case> cases = new ArrayList<>();
+        try {
+            FileReader fileReader;
+            fileReader = new FileReader("emptycases/cases.json");
+            Type caseArrayType = new TypeToken<ArrayList<Case>>() {}.getType();
+            cases = gson.fromJson(fileReader, caseArrayType);
+            if (cases == null) {
+                cases = new ArrayList<>();
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return cases;
     }
 }

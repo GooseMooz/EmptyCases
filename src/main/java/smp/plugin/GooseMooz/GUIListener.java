@@ -13,9 +13,11 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Animations.AnimationsGUI;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
+import smp.plugin.GooseMooz.Menu.EditCasesMenu;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
 import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
 
@@ -31,7 +33,9 @@ public class GUIListener implements Listener {
             event.setCancelled(true);
 
             if (event.getSlot() == 11) {
-                //player.openInventory();
+                menu = EditCasesMenu.initMenu();
+                player.openInventory(menu);
+                player.setMetadata("CaseEdit", new FixedMetadataValue(EmptyCases.getInstance(), "Editing Cases"));
             } else if (event.getSlot() == 13) {
                 menu = CreateCaseMenu.initialMenu();
                 player.openInventory(menu);
@@ -54,6 +58,12 @@ public class GUIListener implements Listener {
                 // Change Title
                 player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, (float) 0.25, 0);
                 PlayerNameInput.createNameInput(player);
+            } else if (slot == 10) {
+                // Case Storage
+                player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, (float) 0.25, 0);
+                menu = CreateCaseMenu.storageMenu();
+                player.openInventory(menu);
+                HelperFunctions.removeSetMetadata("CreateCaseGui", "CaseStorage", "Storing Items", player);
             } else if (slot == 18) {
                 // Discard Case
                 currentCase.onClose();
@@ -89,6 +99,15 @@ public class GUIListener implements Listener {
             menu = CreateCaseMenu.inventoryFromCase(currentCase);
             player.openInventory(menu);
             HelperFunctions.removeSetMetadata("CaseIconChoose", "CreateCaseGUI", "Create Cases Menu", player);
+        } else if (player.hasMetadata("CaseEdit")) {
+            event.setCancelled(true);
+            int slot = event.getSlot();
+            currentCase = HelperFunctions.getCases().get(slot);
+            currentCase.makeCurrent();
+            menu = CreateCaseMenu.inventoryFromCase(currentCase);
+            player.openInventory(menu);
+            player.openInventory(menu);
+            HelperFunctions.removeSetMetadata("CaseEdit", "EditCaseGUI", Integer.toString(slot), player);
         }
     }
 

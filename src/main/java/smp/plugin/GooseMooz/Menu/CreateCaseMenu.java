@@ -149,4 +149,25 @@ public class CreateCaseMenu {
 
         return inventory;
     }
+
+    public static Inventory storageMenu() {
+        Inventory inventory = Bukkit.createInventory(null, 9 * 3, Component.text("Storage"));
+
+        ItemStack glassFill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta metaGlassFill = glassFill.getItemMeta();
+        metaGlassFill.displayName(Component.text(""));
+        glassFill.setItemMeta(metaGlassFill);
+        for (int i = 0; i < 9; i++) {
+            inventory.setItem(i, glassFill);
+            inventory.setItem(i + 18, glassFill);
+        }
+
+        ItemStack addItem  = new ItemStack(Material.MINECART);
+        ItemMeta metaAddItem = addItem.getItemMeta();
+        metaAddItem.displayName(Component.text("Add Item").color(TextColor.color(28, 211, 119)));
+        addItem.setItemMeta(metaAddItem);
+        inventory.setItem(22, addItem);
+
+        return inventory;
+    }
 }
