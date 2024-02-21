@@ -167,11 +167,19 @@ public class CreateCaseMenu {
         ItemStack addItem = HelperFunctions.createItem(Material.MINECART, "Add Item", TextColor.color(28, 211, 119));
         inventory.setItem(22, addItem);
 
+        //TODO: Add if for available pages colors
         ItemStack nextPage = HelperFunctions.createItem(Material.LIME_DYE, "Next Page", TextColor.color(22, 211, 0));
         inventory.setItem(26, nextPage);
 
         ItemStack prevPage = HelperFunctions.createItem(Material.LIME_DYE, "Prev Page", TextColor.color(22, 211, 0));
         inventory.setItem(18, prevPage);
+
+        return inventory;
+    }
+
+    public static Inventory addItemMenu() {
+        Inventory inventory = Bukkit.createInventory(null, 3, Component.text("Add Item"));
+
 
         return inventory;
     }

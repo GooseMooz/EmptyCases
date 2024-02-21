@@ -13,13 +13,14 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Animations.AnimationsGUI;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
 import smp.plugin.GooseMooz.Menu.EditCasesMenu;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
-import smp.plugin.GooseMooz.SupportFunctions.PlayerNameInput;
+import smp.plugin.GooseMooz.SupportFunctions.PlayerSignInput;
 
 public class GUIListener implements Listener {
     public static Inventory menu = CreateCaseMenu.initialMenu();
@@ -57,7 +58,7 @@ public class GUIListener implements Listener {
             } else if (slot == 1) {
                 // Change Title
                 player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, (float) 0.25, 0);
-                PlayerNameInput.createNameInput(player);
+                PlayerSignInput.createNameInput(player);
             } else if (slot == 10) {
                 // Case Storage
                 player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, (float) 0.25, 0);
@@ -106,8 +107,26 @@ public class GUIListener implements Listener {
             currentCase.makeCurrent();
             menu = CreateCaseMenu.inventoryFromCase(currentCase);
             player.openInventory(menu);
-            player.openInventory(menu);
+
+            //TODO: Change Integer.toString because I have a currentCase that I can play on
             HelperFunctions.removeSetMetadata("CaseEdit", "EditCaseGUI", Integer.toString(slot), player);
+        } else if (player.hasMetadata("CaseStorage")) {
+            event.setCancelled(true);
+            int slot = event.getSlot();
+            if (slot == 22) {
+                //Add New Item
+                menu = CreateCaseMenu.addItemMenu();
+                player.openInventory(menu);
+                HelperFunctions.removeSetMetadata("CaseStorage", "AddItem", "Adding Item", player);
+            } else if (slot == 26) {
+                // Next page if available
+            } else if (slot == 18) {
+                // Prev page if available
+            }
+        } else if (player.hasMetadata("AddItem")) {
+            ItemStack item = event.getCurrentItem();
+            currentCase.addItem(item);
+            PlayerSignInput.createNameInput(player);
         }
     }
 
@@ -126,6 +145,9 @@ public class GUIListener implements Listener {
             Material prev = Material.valueOf(restore.getMetadata("PrevBlock").get(0).asString());
             restore.setType(prev);
             HelperFunctions.removeSetMetadata("PrevBlock", "CreateCaseGUI", "Create Cases Menu", player);
+        } else if (player.hasMetadata("EditChance")) {
+            assert name != null;
+            //TODO: Figure out how to manage chances of the items in case
         }
     }
 
@@ -144,6 +166,9 @@ public class GUIListener implements Listener {
         if (player.hasMetadata("CreateCaseGUI")) {
             if (player.hasMetadata("EditName")) {
                 player.removeMetadata("EditName", EmptyCases.getInstance());
+                return;
+            } else if (player.hasMetadata("EditChance")) {
+                player.removeMetadata("EditChance", EmptyCases.getInstance());
                 return;
             }
 

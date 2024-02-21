@@ -82,6 +82,10 @@ public class Case {
         this.items = newItems;
     }
 
+    public void addItem(ItemStack item) {
+        this.items.add(item);
+    }
+
     public void makeCurrent() {
         Gson gson = new Gson();
         String json = gson.toJson(this);

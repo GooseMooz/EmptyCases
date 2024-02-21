@@ -47,7 +47,7 @@ public class HelperFunctions {
 
     public static ArrayList<Case> getCases() {
         Gson gson = new Gson();
-        ArrayList<Case> cases = new ArrayList<>();
+        ArrayList<Case> cases;
         try {
             FileReader fileReader;
             fileReader = new FileReader("emptycases/cases.json");
