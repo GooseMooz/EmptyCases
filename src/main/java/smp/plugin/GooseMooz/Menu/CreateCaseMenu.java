@@ -150,8 +150,10 @@ public class CreateCaseMenu {
         return inventory;
     }
 
-    public static Inventory storageMenu() {
+    public static Inventory storageMenu(int page) {
         Inventory inventory = Bukkit.createInventory(null, 9 * 3, Component.text("Storage"));
+
+        //TODO: FILL INVENTORY WITH ITEMS IF POSSIBLE
 
         ItemStack glassFill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta metaGlassFill = glassFill.getItemMeta();
@@ -162,11 +164,14 @@ public class CreateCaseMenu {
             inventory.setItem(i + 18, glassFill);
         }
 
-        ItemStack addItem  = new ItemStack(Material.MINECART);
-        ItemMeta metaAddItem = addItem.getItemMeta();
-        metaAddItem.displayName(Component.text("Add Item").color(TextColor.color(28, 211, 119)));
-        addItem.setItemMeta(metaAddItem);
+        ItemStack addItem = HelperFunctions.createItem(Material.MINECART, "Add Item", TextColor.color(28, 211, 119));
         inventory.setItem(22, addItem);
+
+        ItemStack nextPage = HelperFunctions.createItem(Material.LIME_DYE, "Next Page", TextColor.color(22, 211, 0));
+        inventory.setItem(26, nextPage);
+
+        ItemStack prevPage = HelperFunctions.createItem(Material.LIME_DYE, "Prev Page", TextColor.color(22, 211, 0));
+        inventory.setItem(18, prevPage);
 
         return inventory;
     }

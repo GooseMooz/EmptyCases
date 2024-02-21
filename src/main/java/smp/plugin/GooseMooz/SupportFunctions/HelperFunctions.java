@@ -3,9 +3,12 @@ package smp.plugin.GooseMooz.SupportFunctions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.EmptyCases;
@@ -57,5 +60,23 @@ public class HelperFunctions {
             throw new RuntimeException(e);
         }
         return cases;
+    }
+    
+    public static ItemStack createItem(Material material, String name) {
+        ItemStack newItem  = new ItemStack(material);
+        ItemMeta metaNewItem = newItem.getItemMeta();
+        metaNewItem.displayName(Component.text(name));
+        newItem.setItemMeta(metaNewItem);
+
+        return newItem;
+    }
+    
+    public static ItemStack createItem(Material material, String name, TextColor color) {
+        ItemStack newItem  = new ItemStack(material);
+        ItemMeta metaNewItem = newItem.getItemMeta();
+        metaNewItem.displayName(Component.text(name).color(color));
+        newItem.setItemMeta(metaNewItem);
+
+        return newItem;
     }
 }

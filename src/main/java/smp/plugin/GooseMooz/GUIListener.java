@@ -61,7 +61,7 @@ public class GUIListener implements Listener {
             } else if (slot == 10) {
                 // Case Storage
                 player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, (float) 0.25, 0);
-                menu = CreateCaseMenu.storageMenu();
+                menu = CreateCaseMenu.storageMenu(0);
                 player.openInventory(menu);
                 HelperFunctions.removeSetMetadata("CreateCaseGui", "CaseStorage", "Storing Items", player);
             } else if (slot == 18) {
