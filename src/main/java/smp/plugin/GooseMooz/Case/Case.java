@@ -26,7 +26,11 @@ public class Case {
     String name = "New Case";
     int icon = 0;
     String settings = "000";
+    // Can't use this with GSON
+    // TODO: FIND ALTERNATIVE TO ARRAYLIST<ITEMSTACK> BECAUSE OF VISIBILITY
     ArrayList<ItemStack> items = new ArrayList<>();
+
+    ArrayList<Double> chances = new ArrayList<>();
 
     public Case(String newName, int newIcon, String newSettings, ArrayList<ItemStack> newItems) {
         setName(newName);
@@ -84,6 +88,10 @@ public class Case {
 
     public void addItem(ItemStack item) {
         this.items.add(item);
+    }
+
+    public void setChance(double chance) {
+        this.chances.add(chance);
     }
 
     public void makeCurrent() {

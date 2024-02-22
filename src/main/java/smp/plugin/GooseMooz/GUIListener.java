@@ -1,19 +1,18 @@
 package smp.plugin.GooseMooz;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Animations.AnimationsGUI;
 import smp.plugin.GooseMooz.Case.Case;
@@ -21,6 +20,8 @@ import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
 import smp.plugin.GooseMooz.Menu.EditCasesMenu;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
 import smp.plugin.GooseMooz.SupportFunctions.PlayerSignInput;
+
+import java.awt.*;
 
 public class GUIListener implements Listener {
     public static Inventory menu = CreateCaseMenu.initialMenu();
@@ -123,11 +124,25 @@ public class GUIListener implements Listener {
             }
         } else if (player.hasMetadata("AddItem")) {
             int slot = event.getSlot();
-            if (slot == 4) {
-                ItemStack item = event.getCurrentItem();
-                currentCase.addItem(item);
-                PlayerSignInput.createNameInput(player);
-            } else {
+            ItemStack glassFill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+            ItemMeta metaGlassFill = glassFill.getItemMeta();
+            metaGlassFill.displayName(Component.text(""));
+            glassFill.setItemMeta(metaGlassFill);
+
+            ItemStack cursorItem = event.getCursor();
+            boolean isPlaced = event.getAction() == InventoryAction.PLACE_ALL ||
+                    event.getAction() == InventoryAction.PLACE_ONE ||
+                    event.getAction() == InventoryAction.PLACE_SOME;
+
+            boolean isPicked = event.getAction() == InventoryAction.PICKUP_ALL ||
+                    event.getAction() == InventoryAction.PICKUP_ONE ||
+                    event.getAction() == InventoryAction.PICKUP_SOME ||
+                    event.getAction() == InventoryAction.PICKUP_HALF;
+
+            if (slot == 4 && isPlaced) {
+                currentCase.addItem(cursorItem);
+                PlayerSignInput.createChanceInput(player);
+            } else if (isPicked && cursorItem == glassFill) {
                 event.setCancelled(true);
             }
         }
@@ -150,10 +165,15 @@ public class GUIListener implements Listener {
             HelperFunctions.removeSetMetadata("PrevBlock", "CreateCaseGUI", "Create Cases Menu", player);
         } else if (player.hasMetadata("EditChance")) {
             assert name != null;
-            //TODO: Figure out how to manage chances of the items in case
-            // I'll do it using Meta Descriptioin of items. This way I can easily store it and staff can see the chances
-            // But what if item already has description????
-            // Maybe should have another Array in Case with corresponding chances to items :<
+            currentCase.setChance(Double.parseDouble(HelperFunctions.componentToString(name)));
+            currentCase.makeCurrent();
+            menu = CreateCaseMenu.storageMenu(0, currentCase);
+            player.openInventory(menu);
+            Location playerLocation = player.getLocation();
+            Block restore = player.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY() - 4, playerLocation.getBlockZ());
+            Material prev = Material.valueOf(restore.getMetadata("PrevBlock").get(0).asString());
+            restore.setType(prev);
+            HelperFunctions.removeSetMetadata("PrevBlock", "CaseStorage", "Editing Current Case", player);
         }
     }
 

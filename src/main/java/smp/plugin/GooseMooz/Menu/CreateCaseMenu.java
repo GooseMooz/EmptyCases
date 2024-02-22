@@ -174,12 +174,11 @@ public class CreateCaseMenu {
         ItemStack addItem = HelperFunctions.createItem(Material.MINECART, "Add Item", TextColor.color(28, 211, 119));
         inventory.setItem(49, addItem);
 
-        //TODO: Add if for available pages colors
         ItemStack nextPage;
         if (page < currentCase.getItems().size() - 1) {
             nextPage = HelperFunctions.createItem(Material.LIME_DYE, "Next Page", TextColor.color(22, 211, 0));
         } else {
-            nextPage = HelperFunctions.createItem(Material.LIGHT_GRAY_DYE, "Next Page", TextColor.color(112, 112, 112));
+            nextPage = HelperFunctions.createItem(Material.GRAY_DYE, "Next Page", TextColor.color(112, 112, 112));
         }
         inventory.setItem(53, nextPage);
 
@@ -187,7 +186,7 @@ public class CreateCaseMenu {
         if (page > 0) {
             prevPage = HelperFunctions.createItem(Material.LIME_DYE, "Prev Page", TextColor.color(22, 211, 0));
         } else {
-            prevPage = HelperFunctions.createItem(Material.LIGHT_GRAY_DYE, "Prev Page", TextColor.color(112, 112, 112));
+            prevPage = HelperFunctions.createItem(Material.GRAY_DYE, "Prev Page", TextColor.color(112, 112, 112));
         }
         inventory.setItem(45, prevPage);
 
