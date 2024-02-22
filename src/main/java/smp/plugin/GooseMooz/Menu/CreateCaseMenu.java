@@ -150,10 +150,17 @@ public class CreateCaseMenu {
         return inventory;
     }
 
-    public static Inventory storageMenu(int page) {
-        Inventory inventory = Bukkit.createInventory(null, 9 * 3, Component.text("Storage"));
+    public static Inventory storageMenu(int page, Case currentCase) {
+        Inventory inventory = Bukkit.createInventory(null, 9 * 6, Component.text("Storage"));
 
-        //TODO: FILL INVENTORY WITH ITEMS IF POSSIBLE
+        int itemIndex = 0;
+        int pageItemsLeft = currentCase.getItems().size() - (page * 36);
+        int pageItemsAmount = pageItemsLeft > 35 ? 36 : pageItemsLeft;
+
+        while (itemIndex < pageItemsAmount) {
+            inventory.setItem(itemIndex + 9, currentCase.getItems().get(page * 36 + itemIndex));
+            itemIndex++;
+        }
 
         ItemStack glassFill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta metaGlassFill = glassFill.getItemMeta();
@@ -161,26 +168,43 @@ public class CreateCaseMenu {
         glassFill.setItemMeta(metaGlassFill);
         for (int i = 0; i < 9; i++) {
             inventory.setItem(i, glassFill);
-            inventory.setItem(i + 18, glassFill);
+            inventory.setItem(i + 45, glassFill);
         }
 
         ItemStack addItem = HelperFunctions.createItem(Material.MINECART, "Add Item", TextColor.color(28, 211, 119));
-        inventory.setItem(22, addItem);
+        inventory.setItem(49, addItem);
 
         //TODO: Add if for available pages colors
-        ItemStack nextPage = HelperFunctions.createItem(Material.LIME_DYE, "Next Page", TextColor.color(22, 211, 0));
-        inventory.setItem(26, nextPage);
+        ItemStack nextPage;
+        if (page < currentCase.getItems().size() - 1) {
+            nextPage = HelperFunctions.createItem(Material.LIME_DYE, "Next Page", TextColor.color(22, 211, 0));
+        } else {
+            nextPage = HelperFunctions.createItem(Material.LIGHT_GRAY_DYE, "Next Page", TextColor.color(112, 112, 112));
+        }
+        inventory.setItem(53, nextPage);
 
-        ItemStack prevPage = HelperFunctions.createItem(Material.LIME_DYE, "Prev Page", TextColor.color(22, 211, 0));
-        inventory.setItem(18, prevPage);
+        ItemStack prevPage;
+        if (page > 0) {
+            prevPage = HelperFunctions.createItem(Material.LIME_DYE, "Prev Page", TextColor.color(22, 211, 0));
+        } else {
+            prevPage = HelperFunctions.createItem(Material.LIGHT_GRAY_DYE, "Prev Page", TextColor.color(112, 112, 112));
+        }
+        inventory.setItem(45, prevPage);
 
         return inventory;
     }
 
     public static Inventory addItemMenu() {
-        Inventory inventory = Bukkit.createInventory(null, 3, Component.text("Add Item"));
+        Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Add Item"));
+        ItemStack glassFill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta metaGlassFill = glassFill.getItemMeta();
+        metaGlassFill.displayName(Component.text(""));
+        glassFill.setItemMeta(metaGlassFill);
+        for (int i = 0; i < 9; i++) {
+            inventory.setItem(i, glassFill);
+        }
 
-
+        inventory.clear(4);
         return inventory;
     }
 }

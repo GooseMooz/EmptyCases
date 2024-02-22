@@ -62,7 +62,7 @@ public class GUIListener implements Listener {
             } else if (slot == 10) {
                 // Case Storage
                 player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, (float) 0.25, 0);
-                menu = CreateCaseMenu.storageMenu(0);
+                menu = CreateCaseMenu.storageMenu(0, currentCase);
                 player.openInventory(menu);
                 HelperFunctions.removeSetMetadata("CreateCaseGui", "CaseStorage", "Storing Items", player);
             } else if (slot == 18) {
@@ -107,26 +107,29 @@ public class GUIListener implements Listener {
             currentCase.makeCurrent();
             menu = CreateCaseMenu.inventoryFromCase(currentCase);
             player.openInventory(menu);
-
-            //TODO: Change Integer.toString because I have a currentCase that I can play on
-            HelperFunctions.removeSetMetadata("CaseEdit", "EditCaseGUI", Integer.toString(slot), player);
+            HelperFunctions.removeSetMetadata("CaseEdit", "EditCaseGUI", "Editing Current Case", player);
         } else if (player.hasMetadata("CaseStorage")) {
             event.setCancelled(true);
             int slot = event.getSlot();
-            if (slot == 22) {
+            if (slot == 49) {
                 //Add New Item
                 menu = CreateCaseMenu.addItemMenu();
                 player.openInventory(menu);
                 HelperFunctions.removeSetMetadata("CaseStorage", "AddItem", "Adding Item", player);
-            } else if (slot == 26) {
+            } else if (slot == 53) {
                 // Next page if available
-            } else if (slot == 18) {
+            } else if (slot == 45) {
                 // Prev page if available
             }
         } else if (player.hasMetadata("AddItem")) {
-            ItemStack item = event.getCurrentItem();
-            currentCase.addItem(item);
-            PlayerSignInput.createNameInput(player);
+            int slot = event.getSlot();
+            if (slot == 4) {
+                ItemStack item = event.getCurrentItem();
+                currentCase.addItem(item);
+                PlayerSignInput.createNameInput(player);
+            } else {
+                event.setCancelled(true);
+            }
         }
     }
 
@@ -148,9 +151,14 @@ public class GUIListener implements Listener {
         } else if (player.hasMetadata("EditChance")) {
             assert name != null;
             //TODO: Figure out how to manage chances of the items in case
+            // I'll do it using Meta Descriptioin of items. This way I can easily store it and staff can see the chances
+            // But what if item already has description????
+            // Maybe should have another Array in Case with corresponding chances to items :<
         }
     }
 
+
+    //TODO: PROPERLY CLOSE ALL MENUS
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
