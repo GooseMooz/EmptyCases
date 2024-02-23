@@ -13,6 +13,7 @@ package smp.plugin.GooseMooz.Case;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.inventory.ItemStack;
+import smp.plugin.GooseMooz.SimpleItem.SimpleItem;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,11 +29,11 @@ public class Case {
     String settings = "000";
     // Can't use this with GSON
     // TODO: FIND ALTERNATIVE TO ARRAYLIST<ITEMSTACK> BECAUSE OF VISIBILITY
-    ArrayList<ItemStack> items = new ArrayList<>();
+    ArrayList<SimpleItem> items = new ArrayList<>();
 
     ArrayList<Double> chances = new ArrayList<>();
 
-    public Case(String newName, int newIcon, String newSettings, ArrayList<ItemStack> newItems) {
+    public Case(String newName, int newIcon, String newSettings, ArrayList<SimpleItem> newItems) {
         setName(newName);
         setIcon(newIcon);
         setSettings(newSettings);
@@ -78,16 +79,18 @@ public class Case {
         this.settings = newSettings;
     }
 
-    public ArrayList<ItemStack> getItems() {
+    public ArrayList<SimpleItem> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<ItemStack> newItems) {
+    public void setItems(ArrayList<SimpleItem> newItems) {
         this.items = newItems;
     }
 
     public void addItem(ItemStack item) {
-        this.items.add(item);
+        SimpleItem conversion = new SimpleItem();
+        conversion.stackToSimple(item);
+        this.items.add(conversion);
     }
 
     public void setChance(double chance) {

@@ -158,7 +158,7 @@ public class CreateCaseMenu {
         int pageItemsAmount = pageItemsLeft > 35 ? 36 : pageItemsLeft;
 
         while (itemIndex < pageItemsAmount) {
-            inventory.setItem(itemIndex + 9, currentCase.getItems().get(page * 36 + itemIndex));
+            inventory.setItem(itemIndex + 9, currentCase.getItems().get(page * 36 + itemIndex).simpleToStack());
             itemIndex++;
         }
 
