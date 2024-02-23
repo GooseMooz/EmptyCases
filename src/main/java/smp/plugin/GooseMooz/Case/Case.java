@@ -1,15 +1,4 @@
 package smp.plugin.GooseMooz.Case;
-//TODO: JSON:
-// Has name, all properties of icons, animations, etc., has inventory of items to dispose.
-// Create a function that creates an inventory from JSON file of a case
-// Structure:
-// {
-//      Name: *name*
-//      Icon: *block + meta*
-//      Settings: *BG + ANIMATION + WHEEL*
-//      Items: [*items*]
-//  }
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.inventory.ItemStack;
@@ -27,11 +16,7 @@ public class Case {
     String name = "New Case";
     int icon = 0;
     String settings = "000";
-    // Can't use this with GSON
-    // TODO: FIND ALTERNATIVE TO ARRAYLIST<ITEMSTACK> BECAUSE OF VISIBILITY
     ArrayList<SimpleItem> items = new ArrayList<>();
-
-    ArrayList<Double> chances = new ArrayList<>();
 
     public Case(String newName, int newIcon, String newSettings, ArrayList<SimpleItem> newItems) {
         setName(newName);
@@ -93,8 +78,17 @@ public class Case {
         this.items.add(conversion);
     }
 
-    public void setChance(double chance) {
-        this.chances.add(chance);
+    public void setChance(int itemIndex, Double chance) {
+        this.items.get(itemIndex).setChance(chance);
+    }
+
+    public double chanceRange() {
+        double sum = 0;
+        for (SimpleItem item : this.items) {
+            sum += item.getChance();
+        }
+
+        return sum;
     }
 
     public void makeCurrent() {

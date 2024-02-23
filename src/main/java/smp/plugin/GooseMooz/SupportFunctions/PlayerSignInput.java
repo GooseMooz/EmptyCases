@@ -33,7 +33,7 @@ public class PlayerSignInput {
         player.setMetadata("EditName", new FixedMetadataValue(EmptyCases.getInstance(), "Editing Case Name"));
     }
 
-    public static void createChanceInput (Player player) {
+    public static void createChanceInput (Player player, int itemIndex) {
         Material oakSign = Material.BIRCH_SIGN;
         Location playerLocation = player.getLocation();
         Block block = player.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY() - 4, playerLocation.getBlockZ());
@@ -51,6 +51,6 @@ public class PlayerSignInput {
                 player.openSign(sign, Side.FRONT);
             }
         }.runTaskLater(EmptyCases.getInstance(), 3);
-        player.setMetadata("EditChance", new FixedMetadataValue(EmptyCases.getInstance(), "Editing Item Chance"));
+        player.setMetadata("EditChance", new FixedMetadataValue(EmptyCases.getInstance(), itemIndex));
     }
 }

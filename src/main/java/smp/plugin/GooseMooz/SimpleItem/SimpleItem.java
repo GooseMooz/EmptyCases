@@ -4,10 +4,13 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+
 public class SimpleItem {
     Material type = Material.AIR;
     int amount = 0;
     ItemMeta meta;
+    Double chance = 0.0;
 
     public ItemStack simpleToStack() {
         ItemStack stack = new ItemStack(type, amount);
@@ -31,5 +34,13 @@ public class SimpleItem {
 
     public void setMeta(ItemMeta meta) {
         this.meta = meta;
+    }
+
+    public void setChance(Double chance) {
+        this.chance = chance;
+    }
+
+    public Double getChance() {
+        return this.chance;
     }
 }

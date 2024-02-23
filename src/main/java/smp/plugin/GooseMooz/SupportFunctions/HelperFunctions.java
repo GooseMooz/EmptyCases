@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Case.Case;
 import smp.plugin.GooseMooz.EmptyCases;
+import smp.plugin.GooseMooz.SimpleItem.SimpleItem;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -78,5 +79,32 @@ public class HelperFunctions {
         newItem.setItemMeta(metaNewItem);
 
         return newItem;
+    }
+
+    public static ArrayList<ItemStack> randomItemsArray(Case openCase, int size, ArrayList<ItemStack> prevFrame) {
+        ArrayList<ItemStack> frame = new ArrayList<>();
+        if (prevFrame != null) {
+            frame.addAll(size - 1, prevFrame.subList(1, prevFrame.size()));
+            frame.add(randomItem(openCase));
+        } else {
+            for (int i = 0; i < size; i++) {
+                frame.add(randomItem(openCase));
+            }
+        }
+        return frame;
+    }
+
+    public static ItemStack randomItem(Case openCase) {
+        ArrayList<SimpleItem> items = openCase.getItems();
+        assert items != null;
+        double counter = 0.0; //Tracks chance range
+        int parallelCounter = 0; //Tracks item index
+        double random = Math.random() * openCase.chanceRange();
+        while (counter < random) {
+            counter += items.get(parallelCounter).getChance();
+            parallelCounter += 1;
+        }
+
+        return items.get(parallelCounter - 1).simpleToStack();
     }
 }

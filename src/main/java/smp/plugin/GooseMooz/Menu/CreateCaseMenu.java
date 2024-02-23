@@ -171,7 +171,11 @@ public class CreateCaseMenu {
             inventory.setItem(i + 45, glassFill);
         }
 
-        ItemStack addItem = HelperFunctions.createItem(Material.MINECART, "Add Item", TextColor.color(28, 211, 119));
+        ItemStack pageItem = HelperFunctions.createItem(Material.GRAY_STAINED_GLASS_PANE, "Page" + page, TextColor.color(255, 255, 255));
+        pageItem.setAmount(page + 1);
+        inventory.setItem(4, pageItem);
+
+        ItemStack addItem = HelperFunctions.createItem(Material.NETHER_STAR, "Add Item", TextColor.color(166, 60, 255));
         inventory.setItem(49, addItem);
 
         ItemStack nextPage;
