@@ -4,8 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-
 public class SimpleItem {
     Material type = Material.AIR;
     int amount = 0;

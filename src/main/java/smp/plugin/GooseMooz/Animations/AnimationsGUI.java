@@ -23,4 +23,10 @@ public class AnimationsGUI{
             flag = !flag;
         };
     }
+
+    public Runnable openAnimation() {
+        return () -> {
+
+        };
+    }
 }
