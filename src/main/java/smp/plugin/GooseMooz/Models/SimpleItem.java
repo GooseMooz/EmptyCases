@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.SimpleItem;
+package smp.plugin.GooseMooz.Models;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

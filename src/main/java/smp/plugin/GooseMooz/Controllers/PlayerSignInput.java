@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.SupportFunctions;
+package smp.plugin.GooseMooz.Controllers;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;

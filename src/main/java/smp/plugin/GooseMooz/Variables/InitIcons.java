@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.SupportFunctions;
+package smp.plugin.GooseMooz.Variables;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;

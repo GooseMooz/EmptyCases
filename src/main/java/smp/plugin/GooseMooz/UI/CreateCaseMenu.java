@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.Menu;
+package smp.plugin.GooseMooz.UI;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
@@ -10,9 +10,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import smp.plugin.GooseMooz.Case.Case;
+import smp.plugin.GooseMooz.Models.Case;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
-import smp.plugin.GooseMooz.SupportFunctions.InitIcons;
+import smp.plugin.GooseMooz.Variables.InitIcons;
 
 import java.util.Objects;
 

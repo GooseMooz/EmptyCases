@@ -10,13 +10,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
-import smp.plugin.GooseMooz.Case.Case;
+import smp.plugin.GooseMooz.Models.Case;
 import smp.plugin.GooseMooz.EmptyCases;
-import smp.plugin.GooseMooz.SimpleItem.SimpleItem;
+import smp.plugin.GooseMooz.Models.SimpleItem;
+import smp.plugin.GooseMooz.Variables.InitIcons;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;

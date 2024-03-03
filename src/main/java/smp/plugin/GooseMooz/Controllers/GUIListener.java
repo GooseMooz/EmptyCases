@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz;
+package smp.plugin.GooseMooz.Controllers;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
@@ -15,13 +15,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import smp.plugin.GooseMooz.Animations.AnimationsGUI;
-import smp.plugin.GooseMooz.Case.Case;
-import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
-import smp.plugin.GooseMooz.Menu.EditCasesMenu;
-import smp.plugin.GooseMooz.Menu.OptionsMenu;
+import smp.plugin.GooseMooz.EmptyCases;
+import smp.plugin.GooseMooz.Models.Case;
+import smp.plugin.GooseMooz.UI.CreateCaseMenu;
+import smp.plugin.GooseMooz.UI.EditCasesMenu;
+import smp.plugin.GooseMooz.UI.OptionsMenu;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
-import smp.plugin.GooseMooz.SupportFunctions.MetadataKeys;
-import smp.plugin.GooseMooz.SupportFunctions.PlayerSignInput;
+import smp.plugin.GooseMooz.Variables.MetadataKeys;
+import smp.plugin.GooseMooz.Controllers.PlayerSignInput;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.Menu;
+package smp.plugin.GooseMooz.UI;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

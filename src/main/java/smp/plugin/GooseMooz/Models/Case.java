@@ -1,8 +1,7 @@
-package smp.plugin.GooseMooz.Case;
+package smp.plugin.GooseMooz.Models;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.inventory.ItemStack;
-import smp.plugin.GooseMooz.SimpleItem.SimpleItem;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

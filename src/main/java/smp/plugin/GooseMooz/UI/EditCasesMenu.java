@@ -1,9 +1,9 @@
-package smp.plugin.GooseMooz.Menu;
+package smp.plugin.GooseMooz.UI;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
-import smp.plugin.GooseMooz.Case.Case;
+import smp.plugin.GooseMooz.Models.Case;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
 
 import java.util.ArrayList;

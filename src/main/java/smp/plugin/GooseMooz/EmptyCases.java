@@ -1,7 +1,8 @@
 package smp.plugin.GooseMooz;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import smp.plugin.GooseMooz.commands.GUICommand;
+import smp.plugin.GooseMooz.Commands.GUICommand;
+import smp.plugin.GooseMooz.Controllers.GUIListener;
 
 import java.io.File;
 import java.io.IOException;

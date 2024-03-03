@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.SupportFunctions;
+package smp.plugin.GooseMooz.Variables;
 
 public final class MetadataKeys {
     public static final String OPENED_GUI = "OpenedGUI";

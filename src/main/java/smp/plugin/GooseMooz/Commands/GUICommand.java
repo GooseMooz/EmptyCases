@@ -1,4 +1,4 @@
-package smp.plugin.GooseMooz.commands;
+package smp.plugin.GooseMooz.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -10,7 +10,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 import smp.plugin.GooseMooz.Animations.AnimationsGUI;
 import smp.plugin.GooseMooz.EmptyCases;
-import smp.plugin.GooseMooz.Menu.CreateCaseMenu;
+import smp.plugin.GooseMooz.UI.CreateCaseMenu;
 
 public class GUICommand implements CommandExecutor {
 
