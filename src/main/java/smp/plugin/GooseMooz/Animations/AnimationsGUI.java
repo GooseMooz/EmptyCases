@@ -3,6 +3,7 @@ package smp.plugin.GooseMooz.Animations;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
 
 public class AnimationsGUI{
     boolean flag = true;
@@ -26,7 +27,7 @@ public class AnimationsGUI{
 
     public Runnable openAnimation() {
         return () -> {
-
+            // Move it to another class
         };
     }
 }

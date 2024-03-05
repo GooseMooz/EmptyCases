@@ -21,6 +21,7 @@ public class OpenCaseMenu {
 
         //TODO: CHANGE WHOLE STRUCTURE ACCORDING TO OOP
 
+
         return menu;
     }
 
