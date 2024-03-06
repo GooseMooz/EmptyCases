@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -20,6 +21,7 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class HelperFunctions {
     static ArrayList<ItemStack> icons = new ArrayList<>(Arrays.asList(
@@ -106,5 +108,16 @@ public class HelperFunctions {
         }
 
         return items.get(parallelCounter - 1).simpleToStack();
+    }
+
+    public static ArrayList<ItemStack> openingItemsArray(Inventory inventory) {
+        ArrayList<ItemStack> ans = new ArrayList<>();
+        for (ItemStack item : inventory) {
+            if (!Objects.equals(item.getItemMeta().displayName(), Component.text("What's in there?"))) {
+                ans.add(item);
+            }
+        }
+
+        return ans;
     }
 }

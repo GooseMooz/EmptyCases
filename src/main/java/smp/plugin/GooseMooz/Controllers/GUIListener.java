@@ -14,7 +14,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
-import smp.plugin.GooseMooz.Animations.AnimationsGUI;
+import smp.plugin.GooseMooz.Animations.MenuGUI;
 import smp.plugin.GooseMooz.EmptyCases;
 import smp.plugin.GooseMooz.Models.Case;
 import smp.plugin.GooseMooz.UI.CreateCaseMenu;
@@ -22,7 +22,6 @@ import smp.plugin.GooseMooz.UI.EditCasesMenu;
 import smp.plugin.GooseMooz.UI.OptionsMenu;
 import smp.plugin.GooseMooz.SupportFunctions.HelperFunctions;
 import smp.plugin.GooseMooz.Variables.MetadataKeys;
-import smp.plugin.GooseMooz.Controllers.PlayerSignInput;
 
 import java.util.Objects;
 
@@ -76,8 +75,8 @@ public class GUIListener implements Listener {
                 currentCase.onClose();
                 menu = CreateCaseMenu.mainMenu();
                 player.openInventory(menu);
-                AnimationsGUI animationsGUI = new AnimationsGUI(menu);
-                Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), animationsGUI.mainMenu(), 0L, 20L);
+                MenuGUI menuGUI = new MenuGUI(menu);
+                Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), menuGUI.mainMenu(), 0L, 20L);
                 HelperFunctions.removeSetMetadata(MetadataKeys.CREATE_CASE, MetadataKeys.OPENED_GUI, "Preferences Menu", player);
                 player.playSound(player.getLocation(), Sound.ENTITY_CREEPER_DEATH, (float) 0.25, 0);
             } else if (slot == 22) {
@@ -93,8 +92,8 @@ public class GUIListener implements Listener {
                 menu = CreateCaseMenu.initialMenu();
                 menu = CreateCaseMenu.mainMenu();
                 player.openInventory(menu);
-                AnimationsGUI animationsGUI = new AnimationsGUI(menu);
-                Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), animationsGUI.mainMenu(), 0L, 20L);
+                MenuGUI menuGUI = new MenuGUI(menu);
+                Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), menuGUI.mainMenu(), 0L, 20L);
                 HelperFunctions.removeSetMetadata(MetadataKeys.CREATE_CASE, MetadataKeys.OPENED_GUI, "Preferences Menu", player);
                 player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, (float) 0.25, 0);
             }

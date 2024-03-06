@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
-import smp.plugin.GooseMooz.Animations.AnimationsGUI;
+import smp.plugin.GooseMooz.Animations.MenuGUI;
 import smp.plugin.GooseMooz.EmptyCases;
 import smp.plugin.GooseMooz.UI.CreateCaseMenu;
 
@@ -27,8 +27,8 @@ public class GUICommand implements CommandExecutor {
         player.openInventory(inventory);
         player.setMetadata("OpenedGUI", new FixedMetadataValue(EmptyCases.getInstance(), "Preferences Menu"));
 
-        AnimationsGUI animationsGUI = new AnimationsGUI(inventory);
-        Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), animationsGUI.mainMenu(), 0L, 20L);
+        MenuGUI menuGUI = new MenuGUI(inventory);
+        Bukkit.getScheduler().runTaskTimer(EmptyCases.getInstance(), menuGUI.mainMenu(), 0L, 20L);
 
         return true;
     }
