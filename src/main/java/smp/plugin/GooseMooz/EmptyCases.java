@@ -1,6 +1,7 @@
 package smp.plugin.GooseMooz;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import smp.plugin.GooseMooz.Commands.CompleterCommand;
 import smp.plugin.GooseMooz.Commands.GUICommand;
 import smp.plugin.GooseMooz.Controllers.GUIListener;
 
@@ -8,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public final class EmptyCases extends JavaPlugin {
     private static EmptyCases instance;
@@ -19,7 +21,8 @@ public final class EmptyCases extends JavaPlugin {
         jsonInit("emptycases/current.json");
         jsonInit("emptycases/templates.json");
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
-        getCommand("emptycases").setExecutor(new GUICommand());
+        Objects.requireNonNull(getCommand("emptycases")).setExecutor(new GUICommand());
+        Objects.requireNonNull(getCommand("emptycases")).setTabCompleter(new CompleterCommand());
     }
 
     @Override
